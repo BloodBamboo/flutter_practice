@@ -31,18 +31,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   String userAvatar;
   String userName = "点击头像登录";
+  var _isLogin = false;
 
   @override
   void initState() {
     //尝试显示用户信息
     _showUerInfo();
     eventBus.on<LoginEvent>().listen((event) {
+      _isLogin = false;
       //获取用户信息并显示
       _getUerInfo();
-      Fluttertoast.showToast(msg: "获取用户信息");
     });
     eventBus.on<LogoutEvent>().listen((event) {
-      Fluttertoast.showToast(msg: "退出登录");
+      _isLogin = true;
       _showUerInfo();
     });
     super.initState();
@@ -80,7 +81,8 @@ class _ProfilePageState extends State<ProfilePage> {
   void _login() {
     DataUtil.isLogin().then((islogin) async {
       if (islogin) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileDetailPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ProfileDetailPage()));
       } else {
         final result = await Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
@@ -171,10 +173,13 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   _navPage(int index) {
-    switch (index) {
-      case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MyMessagePage()));
-        break;
+    DataUtil.isLogin().then((isLogin) {
+      if (isLogin) {
+        switch (index) {
+          case 0:
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MyMessagePage()));
+            break;
 //      case 1:
 //        break;
 //      case 2:
@@ -187,11 +192,13 @@ class _ProfilePageState extends State<ProfilePage> {
 //        break;
 //      case 6:
 //        break;
-      default:
-        {
-          Fluttertoast.showToast(msg: "${StringConst.PROFILE_MENU[index]}");
+          default:
+            {
+              Fluttertoast.showToast(msg: "${StringConst.PROFILE_MENU[index]}");
+            }
+            break;
         }
-        break;
-    }
+      }
+    });
   }
 }

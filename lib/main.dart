@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/page/discovery_page.dart';
-import 'package:flutter_app/page/new_page.dart';
+import 'package:flutter_app/page/news_page.dart';
 import 'package:flutter_app/page/profile_page.dart';
 import 'package:flutter_app/page/tweet_page.dart';
 import 'package:flutter_app/weight/my_drawer.dart';
@@ -35,10 +35,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   List<NavigationIconView> _bottomItems;
   List<Widget> _pages;
+  PageController _pageController;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _bottomItems = [
       NavigationIconView(
@@ -59,7 +59,15 @@ class _MyHomePageState extends State<MyHomePage> {
           'assets/images/ic_nav_my_pressed.png'),
     ];
 
-    _pages = [NewPage(), TweetPage(), DiscoveryPage(), ProfilePage()];
+    _pages = [NewsPage(), TweetPage(), DiscoveryPage(), ProfilePage()];
+
+    _pageController = PageController(initialPage: _currentIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: PageView.builder(
           physics: NeverScrollableScrollPhysics(),
+          controller: _pageController,
           itemBuilder: (context, index) {
             return _pages[_currentIndex];
           },
@@ -87,6 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
             setState(() {
               _currentIndex = index;
             });
+//            _pageController.jumpToPage(index);
+//            _pageController.animateToPage(index,
+//                duration: Duration(seconds: 1), curve: Curves.ease);
           },
         ),
         drawer: Container(

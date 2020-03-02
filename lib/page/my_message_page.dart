@@ -35,35 +35,35 @@ class _MyMessagePageState
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: _tabTitles.length,
+        length: _tabTitles.length,
         child: Scaffold(
-      appBar: AppBar(
-        elevation: 4.0,
-        title: Text("消息中心"),
-        bottom: TabBar(
+          appBar: AppBar(
+//            elevation: 4.0,
+            title: Text("消息中心"),
+            bottom: TabBar(
 //            controller: _controller,
-            onTap: (index) => Fluttertoast.showToast(msg: "$index"),
-          tabs: _tabTitles
-              .map((title) => Tab(
-                    text: title,
-                  ))
-              .toList(),
-        ),
-      ),
-      body: TabBarView(
+              onTap: (index) => Fluttertoast.showToast(msg: "$index"),
+              tabs: _tabTitles
+                  .map((title) => Tab(
+                        text: title,
+                      ))
+                  .toList(),
+            ),
+          ),
+          body: TabBarView(
 //          controller: _controller,
 //          physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          Center(
-            child: Text("暂无内容"),
+            children: <Widget>[
+              Center(
+                child: Text("暂无内容"),
+              ),
+              Center(
+                child: Text("暂无内容"),
+              ),
+              _buildMessageList(),
+            ],
           ),
-          Center(
-            child: Text("暂无内容"),
-          ),
-          _buildMessageList(),
-        ],
-      ),
-    ));
+        ));
   }
 
 //  Future<Null> _pullToRefresh() async {

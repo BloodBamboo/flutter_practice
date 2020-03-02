@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NetUtil {
   Dio _dio;
@@ -20,15 +21,23 @@ class NetUtil {
     _dio = Dio();
   }
 
-  Future<Map<String, dynamic>> get(String url, Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> get(
+      String url, Map<String, dynamic> params) async {
+
     if (url != null && params != null && params.isNotEmpty) {
-      var response = await _dio.get(url, queryParameters: params);
-      return response.data;
+      try {
+        print(params);
+        var response = await _dio.get(url, queryParameters: params);
+        return response.data;
+      } catch (e) {
+        return null;
+      }
     }
     return null;
   }
 
-  Future<Map<String, dynamic>> post(String url, Map<String, dynamic> params) async {
+  Future<Map<String, dynamic>> post(
+      String url, Map<String, dynamic> params) async {
     if (url != null && params != null && params.isNotEmpty) {
       var response = await _dio.post(url, data: params);
       return response.data;

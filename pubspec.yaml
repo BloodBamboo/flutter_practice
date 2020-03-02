@@ -31,6 +31,7 @@ dependencies:
   barcode_scan: ^1.0.0
   vibration: ^1.0.2
   sensors: ^0.4.0+1
+  image_picker: ^0.6.3+4
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,9 @@ flutter:
   - assets/images/ic_avatar_default.png
   #摇一摇背景图
   - assets/images/shake.png
+
+  - assets/images/ic_add_pics.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:
