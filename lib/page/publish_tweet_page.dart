@@ -181,8 +181,8 @@ class _PublishTweetPageState extends State<PublishTweetPage> {
     FormData formData = new FormData.fromMap({
       "msg": tweetContent,
       "access_token": token,
-      // 支持文件数组上传
-      "files": fileList.length > 0
+      // 支持文件数组上传,接口要求上传流，所以图片不能上传成功
+      "img": fileList.length > 0
           ? null
           : {
               fileList.map((file) {
